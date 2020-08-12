@@ -18,6 +18,13 @@ public class DataTrackingResponse {
     @Expose
     private List<ResultData> result;
 
+    @SerializedName("error")
+    @Expose
+    private ResultData error;
+
+    public ResultData getError(){
+        return error;
+    }
 
     public String getStatus() {
         return status;

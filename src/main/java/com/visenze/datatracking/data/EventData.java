@@ -1,9 +1,12 @@
 package com.visenze.datatracking.data;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventData {
 
@@ -546,6 +549,12 @@ public class EventData {
     public EventData() {
         Date date = new Date();
         timestamp = Long.toString(date.getTime());
+    }
+
+    public Map<String, String> toMap() {
+        Gson gson = new Gson();
+        String jStr = gson.toJson(this);
+        return gson.fromJson(jStr, Map.class);
     }
 
 }
