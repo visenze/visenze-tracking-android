@@ -146,7 +146,7 @@ public class DataTracking {
     public EventData addEvent() {
         EventData event = dataCollection.createEvent();
         event.setUid(uid);
-        event.setSid(Long.toString(sid));
+        event.setSessionId(Long.toString(sid));
         if(mDeviceData != null) {
             event.setAaid(mDeviceData.getAaid());
             event.setDidmd5(mDeviceData.getDidmd5());

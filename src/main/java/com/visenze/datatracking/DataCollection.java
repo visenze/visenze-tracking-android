@@ -56,34 +56,34 @@ public class DataCollection {
         platform = Constants.PLATFORM;
         os = Constants.OS;
         int apiVersion = android.os.Build.VERSION.SDK_INT;
-        osv = "API_" + apiVersion;
+        osv = Integer.toString(apiVersion);
         deviceBrand = Build.MANUFACTURER;
         String model = Build.MODEL;
-        if (model.toLowerCase().startsWith(deviceBrand.toLowerCase())) {
+        if (model != null && model.toLowerCase().startsWith(deviceBrand.toLowerCase())) {
             deviceModel = model;
-        } else {
+        } else if (model != null) {
             deviceModel = deviceBrand + " " + model;
         }
 
         int width = Resources.getSystem().getDisplayMetrics().widthPixels;
         int height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-        screenResolution = width + " x " + height;
+        screenResolution = width + "x" + height;
         language = Locale.getDefault().toLanguageTag();
     }
 
 
     public EventData createEvent() {
         EventData event = new EventData();
-        event.setP(platform);
+        event.setPlatform(platform);
         event.setOs(os);
-        event.setOsv(osv);
-        event.setSr(screenResolution);
-        event.setAb(appId);
-        event.setAn(appName);
-        event.setAv(appVersion);
-        event.setDb(deviceBrand);
-        event.setDm(deviceModel);
+        event.setOsVersion(osv);
+        event.setScreenResolution(screenResolution);
+        event.setAppId(appId);
+        event.setAppName(appName);
+        event.setAppVersion(appVersion);
+        event.setDeviceBrand(deviceBrand);
+        event.setDeviceModel(deviceModel);
         event.setLang(language);
         return event;
     }

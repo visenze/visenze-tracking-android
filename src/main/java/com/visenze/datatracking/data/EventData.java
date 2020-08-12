@@ -1,329 +1,14 @@
 package com.visenze.datatracking.data;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
 public class EventData {
 
-    @Expose
-    private String cat;
-
-    @Expose
-    private String action;
-
-    @Expose
-    private String name;
-
-    @Expose
-    private String ts;
-
-    @Expose
-    private String value;
-
-    @Expose
-    private String label;
-
-    @Expose
-    private String queryId;
-
-    @Expose
-    private String fromReqId;
-
-    @Expose
-    private String uid;
-
-    @Expose
-    private String sid;
-
-    @Expose
-    private String source;
-
-    @Expose
-    private String v;
-
-    @Expose
-    private String sdk;
-
-    @Expose
-    private String pid;
-
-    @Expose
-    private String imUrl;
-
-    @Expose
-    private String pos;
-
-    @Expose
-    private String brand;
-
-    @Expose
-    private String price;
-
-    @Expose
-    private String currency;
-
-    @Expose
-    private String productUrl;
-
-    @Expose
-    private String transId;
-
-    @Expose
-    private String url;
-
-    @Expose
-    private String r;
-
-    @Expose
-    private String p;
-
-    @Expose
-    private String os;
-
-    @Expose
-    private String osv;
-
-    @Expose
-    private String sr;
-
-    @Expose
-    private String ab;
-
-    @Expose
-    private String an;
-
-    @Expose
-    private String av;
-
-    @Expose
-    private String db;
-
-    @Expose
-    private String dm;
-
-    @Expose
-    private String aaid;
-
-    @Expose
-    private String didmd5;
-
-    @Expose
-    private String geo;
-
-    @Expose
-    private String lang;
-
-    @Expose
-    private String carrier;
-
-    // campaign
-    @Expose
-    private String c;
-
-    // campaign ad group
-    @Expose
-    private String cag;
-
-    // campaign creative
-    @Expose
-    private String cc;
-
-    @Expose
-    private String s1;
-
-    @Expose
-    private String s2;
-
-    @Expose
-    private String s3;
-
-    @Expose
-    private String s4;
-
-    @Expose
-    private String s5;
-
-
-    public void setCat(String cat) {
-        this.cat = cat;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public void setQueryId(String queryId) {
-        this.queryId = queryId;
-    }
-
-    public void setFromReqId(String fromReqId) {
-        this.fromReqId = fromReqId;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public void setV(String v) {
-        this.v = v;
-    }
-
-    public void setSdk(String sdk) {
-        this.sdk = sdk;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
-    }
-
-    public void setImUrl(String imUrl) {
-        this.imUrl = imUrl;
-    }
-
-    public void setPos(String pos) {
-        this.pos = pos;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public void setProductUrl(String productUrl) {
-        this.productUrl = productUrl;
-    }
-
-    public void setTransId(String transId) {
-        this.transId = transId;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setR(String r) {
-        this.r = r;
-    }
-
-    public void setP(String p) {
-        this.p = p;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
-    }
-
-    public void setOsv(String osv) {
-        this.osv = osv;
-    }
-
-    public void setSr(String sr) {
-        this.sr = sr;
-    }
-
-    public void setAb(String ab) {
-        this.ab = ab;
-    }
-
-    public void setAn(String an) {
-        this.an = an;
-    }
-
-    public void setAv(String av) {
-        this.av = av;
-    }
-
-    public void setDb(String db) {
-        this.db = db;
-    }
-
-    public void setDm(String dm) {
-        this.dm = dm;
-    }
-
-    public void setAaid(String aaid) {
-        this.aaid = aaid;
-    }
-
-    public void setDidmd5(String didmd5) {
-        this.didmd5 = didmd5;
-    }
-
-    public void setGeo(String geo) {
-        this.geo = geo;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
-    public void setCarrier(String carrier) {
-        this.carrier = carrier;
-    }
-
-    public void setC(String c) {
-        this.c = c;
-    }
-
-    public void setCag(String cag) {
-        this.cag = cag;
-    }
-
-    public void setCc(String cc) {
-        this.cc = cc;
-    }
-
-    public void setS1(String s1) {
-        this.s1 = s1;
-    }
-
-    public void setS2(String s2) {
-        this.s2 = s2;
-    }
-
-    public void setS3(String s3) {
-        this.s3 = s3;
-    }
-
-    public void setS4(String s4) {
-        this.s4 = s4;
-    }
-
-    public void setS5(String s5) {
-        this.s5 = s5;
-    }
-
-
-    public String getCat() {
-        return cat;
+    public String getCategory() {
+        return category;
     }
 
     public String getAction() {
@@ -334,8 +19,8 @@ public class EventData {
         return name;
     }
 
-    public String getTs() {
-        return ts;
+    public String getTimestamp() {
+        return timestamp;
     }
 
     public String getValue() {
@@ -358,16 +43,16 @@ public class EventData {
         return uid;
     }
 
-    public String getSid() {
-        return sid;
+    public String getSessionId() {
+        return sessionId;
     }
 
     public String getSource() {
         return source;
     }
 
-    public String getV() {
-        return v;
+    public String getVersion() {
+        return version;
     }
 
     public String getSdk() {
@@ -378,12 +63,12 @@ public class EventData {
         return pid;
     }
 
-    public String getImUrl() {
-        return imUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public String getPos() {
-        return pos;
+    public String getPosition() {
+        return position;
     }
 
     public String getBrand() {
@@ -402,52 +87,52 @@ public class EventData {
         return productUrl;
     }
 
-    public String getTransId() {
-        return transId;
+    public String getTransactionId() {
+        return transactionId;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public String getR() {
-        return r;
+    public String getReferrer() {
+        return referrer;
     }
 
-    public String getP() {
-        return p;
+    public String getPlatform() {
+        return platform;
     }
 
     public String getOs() {
         return os;
     }
 
-    public String getOsv() {
-        return osv;
+    public String getOsVersion() {
+        return osVersion;
     }
 
-    public String getSr() {
-        return sr;
+    public String getScreenResolution() {
+        return screenResolution;
     }
 
-    public String getAb() {
-        return ab;
+    public String getAppId() {
+        return appId;
     }
 
-    public String getAn() {
-        return an;
+    public String getAppName() {
+        return appName;
     }
 
-    public String getAv() {
-        return av;
+    public String getAppVersion() {
+        return appVersion;
     }
 
-    public String getDb() {
-        return db;
+    public String getDeviceBrand() {
+        return deviceBrand;
     }
 
-    public String getDm() {
-        return dm;
+    public String getDeviceModel() {
+        return deviceModel;
     }
 
     public String getAaid() {
@@ -470,16 +155,16 @@ public class EventData {
         return carrier;
     }
 
-    public String getC() {
-        return c;
+    public String getCampaign() {
+        return campaign;
     }
 
-    public String getCag() {
-        return cag;
+    public String getCampaignAdGroup() {
+        return campaignAdGroup;
     }
 
-    public String getCc() {
-        return cc;
+    public String getCampaignCreative() {
+        return campaignCreative;
     }
 
     public String getS1() {
@@ -502,12 +187,365 @@ public class EventData {
         return s5;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setQueryId(String queryId) {
+        this.queryId = queryId;
+    }
+
+    public void setFromReqId(String fromReqId) {
+        this.fromReqId = fromReqId;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public void setSdk(String sdk) {
+        this.sdk = sdk;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public void setProductUrl(String productUrl) {
+        this.productUrl = productUrl;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setReferrer(String referrer) {
+        this.referrer = referrer;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public void setOsVersion(String osVersion) {
+        this.osVersion = osVersion;
+    }
+
+    public void setScreenResolution(String screenResolution) {
+        this.screenResolution = screenResolution;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    public void setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+    }
+
+    public void setDeviceBrand(String deviceBrand) {
+        this.deviceBrand = deviceBrand;
+    }
+
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
+    }
+
+    public void setAaid(String aaid) {
+        this.aaid = aaid;
+    }
+
+    public void setDidmd5(String didmd5) {
+        this.didmd5 = didmd5;
+    }
+
+    public void setGeo(String geo) {
+        this.geo = geo;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public void setCarrier(String carrier) {
+        this.carrier = carrier;
+    }
+
+    public void setCampaign(String campaign) {
+        this.campaign = campaign;
+    }
+
+    public void setCampaignAdGroup(String campaignAdGroup) {
+        this.campaignAdGroup = campaignAdGroup;
+    }
+
+    public void setCampaignCreative(String campaignCreative) {
+        this.campaignCreative = campaignCreative;
+    }
+
+    public void setS1(String s1) {
+        this.s1 = s1;
+    }
+
+    public void setS2(String s2) {
+        this.s2 = s2;
+    }
+
+    public void setS3(String s3) {
+        this.s3 = s3;
+    }
+
+    public void setS4(String s4) {
+        this.s4 = s4;
+    }
+
+    public void setS5(String s5) {
+        this.s5 = s5;
+    }
+
+    @SerializedName("cat")
+    @Expose
+    private String category;
+
+    @SerializedName("action")
+    @Expose
+    private String action;
+
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("ts")
+    @Expose
+    private String timestamp;
+
+    @SerializedName("value")
+    @Expose
+    private String value;
+
+    @SerializedName("label")
+    @Expose
+    private String label;
+
+    @SerializedName("queryId")
+    @Expose
+    private String queryId;
+
+    @SerializedName("fromReqId")
+    @Expose
+    private String fromReqId;
+
+    @SerializedName("uid")
+    @Expose
+    private String uid;
+
+    @SerializedName("sid")
+    @Expose
+    private String sessionId;
+
+    @SerializedName("source")
+    @Expose
+    private String source;
+
+    @SerializedName("v")
+    @Expose
+    private String version;
+
+    @SerializedName("sdk")
+    @Expose
+    private String sdk;
+
+    @SerializedName("pid")
+    @Expose
+    private String pid;
+
+    @SerializedName("imUrl")
+    @Expose
+    private String imageUrl;
+
+    @SerializedName("pos")
+    @Expose
+    private String position;
+
+    @SerializedName("brand")
+    @Expose
+    private String brand;
+
+    @SerializedName("price")
+    @Expose
+    private String price;
+
+    @SerializedName("currency")
+    @Expose
+    private String currency;
+
+    @SerializedName("productUrl")
+    @Expose
+    private String productUrl;
+
+    @SerializedName("transId")
+    @Expose
+    private String transactionId;
+
+    @SerializedName("url")
+    @Expose
+    private String url;
+
+    @SerializedName("r")
+    @Expose
+    private String referrer;
+
+    @SerializedName("p")
+    @Expose
+    private String platform;
+
+    @SerializedName("os")
+    @Expose
+    private String os;
+
+    @SerializedName("osv")
+    @Expose
+    private String osVersion;
+
+    @SerializedName("sr")
+    @Expose
+    private String screenResolution;
+
+    @SerializedName("ab")
+    @Expose
+    private String appId;
+
+    @SerializedName("an")
+    @Expose
+    private String appName;
+
+    @SerializedName("av")
+    @Expose
+    private String appVersion;
+
+    @SerializedName("db")
+    @Expose
+    private String deviceBrand;
+
+    @SerializedName("dm")
+    @Expose
+    private String deviceModel;
+
+    @SerializedName("aaid")
+    @Expose
+    private String aaid;
+
+    @SerializedName("didmd5")
+    @Expose
+    private String didmd5;
+
+    @SerializedName("geo")
+    @Expose
+    private String geo;
+
+    @SerializedName("lang")
+    @Expose
+    private String lang;
+
+    @SerializedName("carrier")
+    @Expose
+    private String carrier;
+
+    @SerializedName("c")
+    @Expose
+    private String campaign;
+
+    @SerializedName("cag")
+    @Expose
+    private String campaignAdGroup;
+
+    @SerializedName("cc")
+    @Expose
+    private String campaignCreative;
+
+    @Expose
+    private String s1;
+
+    @Expose
+    private String s2;
+
+    @Expose
+    private String s3;
+
+    @Expose
+    private String s4;
+
+    @Expose
+    private String s5;
+
 
     public EventData() {
         Date date = new Date();
-        ts = Long.toString(date.getTime());
+        timestamp = Long.toString(date.getTime());
     }
-
-
 
 }
