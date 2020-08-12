@@ -10,7 +10,12 @@ public class Constants {
     public static class Action {
         public static final String LOAD = "load";
         public static final String SEARCH = "search";
-        public static final String CLICK = "click";
+        public static final String CLICK = "product_click";
+        public static final String VIEW = "product_view";
+        public static final String INSTALL = "app_install";
+        public static final String UNINSTALL = "app_uninstall";
+        public static final String TRANSACTION = "transaction";
+        public static final String ADD_TO_CART = "add_to_cart";
     }
 
 
