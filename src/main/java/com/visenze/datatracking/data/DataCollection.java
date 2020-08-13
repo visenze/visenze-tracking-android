@@ -1,4 +1,4 @@
-package com.visenze.datatracking;
+package com.visenze.datatracking.data;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.util.Log;
 
+import com.visenze.datatracking.Constants;
 import com.visenze.datatracking.data.Event;
 
 import java.util.Locale;
@@ -16,6 +17,46 @@ public class DataCollection {
 
     public static String TAG = "DataCollection";
 
+    public String getPlatform() {
+        return platform;
+    }
+
+    public String getOs() {
+        return os;
+    }
+
+    public String getOsv() {
+        return osv;
+    }
+
+    public String getScreenResolution() {
+        return screenResolution;
+    }
+
+    public String getDeviceBrand() {
+        return deviceBrand;
+    }
+
+    public String getDeviceModel() {
+        return deviceModel;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public String getAppVersion() {
+        return appVersion;
+    }
+
     private String platform;
     private String os;
     private String osv;
@@ -23,7 +64,7 @@ public class DataCollection {
     private String deviceBrand;
     private String deviceModel;
     private String language;
-    private String carrier;
+
 
     private String appId;
     private String appName;
@@ -73,19 +114,6 @@ public class DataCollection {
     }
 
 
-    public Event createEvent() {
-        Event event = new Event();
-        event.setPlatform(platform);
-        event.setOs(os);
-        event.setOsVersion(osv);
-        event.setScreenResolution(screenResolution);
-        event.setAppId(appId);
-        event.setAppName(appName);
-        event.setAppVersion(appVersion);
-        event.setDeviceBrand(deviceBrand);
-        event.setDeviceModel(deviceModel);
-        event.setLang(language);
-        return event;
-    }
+
 
 }

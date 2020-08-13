@@ -2,7 +2,14 @@ package com.visenze.datatracking;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.Gson;
+import com.visenze.datatracking.APIService;
+import com.visenze.datatracking.BuildConfig;
+import com.visenze.datatracking.Constants;
+import com.visenze.datatracking.HttpInstance;
+import com.visenze.datatracking.data.DataCollection;
 import com.visenze.datatracking.data.DataTrackingResponse;
 import com.visenze.datatracking.data.DeviceData;
 import com.visenze.datatracking.data.Event;
@@ -25,8 +32,9 @@ public class Tracker {
     private String uid;
     private String sid;
     private DeviceData mDeviceData;
+    private DataCollection dataCollection;
 
-    public Tracker(String code, String uid, String sid, boolean isCN) {
+    public Tracker(String code, String uid, String sid, boolean isCN, DataCollection dataCollection) {
         this.code = code;
         this.uid = uid;
         this.sid = sid;
@@ -35,6 +43,8 @@ public class Tracker {
         } else {
             apiService = HttpInstance.getRetrofitInstance(Constants.BASE_URL).create(APIService.class);
         }
+
+        this.dataCollection = dataCollection;
     }
 
     private boolean isValidResponse(Response<DataTrackingResponse> response) {
@@ -49,6 +59,9 @@ public class Tracker {
         if (code == null) {
             Log.d(TAG, "please provide valid code");
             return;
+        }
+        if (!Event.isValidEvent(e)) {
+            Log.d(TAG, "Event is not valid, check missing fields !");
         }
 
         addFields(e); // add additional field if not set by user.
@@ -79,17 +92,23 @@ public class Tracker {
 
     public void sendEvents(List<Event> events) {
         if (code == null) {
-            Log.d(TAG, "please call init first.");
+            Log.d(TAG, "please provide a valid code");
             return;
         }
 
-        for(Event e : events) {
-            addFields(e);
-        }
 
         if (events.size() > 0) {
             EventsBody body = new EventsBody(uid);
-            body.addEvents(events);
+
+            for(Event e : events) {
+                if(Event.isValidEvent(e)) {
+                    addFields(e);
+                    body.addEvent(e);
+                } else {
+                    Log.d(TAG, "Event " + e.getAction() + " is not valid, check missing fields !");
+                }
+            }
+
 
             Call<DataTrackingResponse> eventCall = apiService.postEvents(code, body);
             eventCall.enqueue(new Callback<DataTrackingResponse>() {
@@ -132,6 +151,19 @@ public class Tracker {
             if(e.getGeo() == null) {
                 e.setGeo(mDeviceData.getGeo());
             }
+        }
+
+        if(dataCollection != null) {
+            e.setPlatform(dataCollection.getPlatform());
+            e.setOs(dataCollection.getOs());
+            e.setOsVersion(dataCollection.getOsv());
+            e.setScreenResolution(dataCollection.getScreenResolution());
+            e.setAppId(dataCollection.getAppId());
+            e.setAppName(dataCollection.getAppName());
+            e.setAppVersion(dataCollection.getAppVersion());
+            e.setDeviceBrand(dataCollection.getDeviceBrand());
+            e.setDeviceModel(dataCollection.getDeviceModel());
+            e.setLang(dataCollection.getLanguage());
         }
     }
 

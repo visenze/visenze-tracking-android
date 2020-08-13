@@ -39,4 +39,8 @@ public class EventsBody {
         events.addAll(data);
     }
 
+    public void addEvent(Event e) {
+        events.add(e);
+    }
+
 }

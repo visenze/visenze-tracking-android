@@ -3,6 +3,7 @@ package com.visenze.datatracking.data;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.visenze.datatracking.Constants;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -546,7 +547,8 @@ public class Event {
     private String s5;
 
 
-    public Event() {
+
+    protected Event() {
         Date date = new Date();
         timestamp = Long.toString(date.getTime());
     }
@@ -556,5 +558,84 @@ public class Event {
         String jStr = gson.toJson(this);
         return gson.fromJson(jStr, Map.class);
     }
+
+    public static boolean isValidEvent(Event e) {
+        String action = e.getAction();
+        if(action == null) {
+            return false;
+        }
+        if (action.equals(Constants.Action.SEARCH)) {
+            return (e.queryId != null);
+        } else if (action.equals(Constants.Action.PRODUCT_CLICK) || action.equals(Constants.Action.PRODUCT_VIEW) || action.equals(Constants.Action.ADD_TO_CART)) {
+            return (e.queryId != null && e.pid != null && e.imageUrl != null && e.position != null);
+        } else if (action.equals(Constants.Action.TRANSACTION)) {
+            return (e.queryId != null && e.transactionId != null && e.value != null);
+        }
+        return true;
+    }
+
+
+    public static Event createSearchEvent(String queryId) {
+        Event event = new Event();
+        event.setAction(Constants.Action.SEARCH);
+        event.setQueryId(queryId);
+        return event;
+    }
+
+
+    public static Event createClickEvent() {
+        Event event = new Event();
+        event.setAction(Constants.Action.CLICK);
+        return event;
+    }
+
+    public static Event createViewEvent() {
+        Event event = new Event();
+        event.setAction(Constants.Action.VIEW);
+        return event;
+    }
+
+    public static Event createProductClickEvent(String queryId, String pid, String imgUrl, int pos) {
+        Event event = new Event();
+        event.setAction(Constants.Action.PRODUCT_CLICK);
+        event.setQueryId(queryId);
+        event.setPid(pid);
+        event.setImageUrl(imgUrl);
+        event.setPosition(Integer.toString(pos));
+        return event;
+    }
+
+    public static Event createProductImpressionEvent(String queryId, String pid, String imgUrl, int pos) {
+        Event event = new Event();
+        event.setAction(Constants.Action.PRODUCT_VIEW);
+        event.setQueryId(queryId);
+        event.setPid(pid);
+        event.setImageUrl(imgUrl);
+        event.setPosition(Integer.toString(pos));
+        return event;
+    }
+
+    public static Event createAddCartEvent(String queryId, String pid, String imgUrl, int pos) {
+        Event event = new Event();
+        event.setAction(Constants.Action.ADD_TO_CART);
+        event.setQueryId(queryId);
+        event.setPid(pid);
+        event.setImageUrl(imgUrl);
+        event.setPosition(Integer.toString(pos));
+        return event;
+    }
+
+
+    public static Event createTransactionEvent(String queryId, String transactionId, double value) {
+        Event event = new Event();
+        event.setAction(Constants.Action.TRANSACTION);
+        event.setQueryId(queryId);
+        event.setTransactionId(transactionId);
+        event.setValue(Double.toString(value));
+        return event;
+    }
+
+
+
 
 }

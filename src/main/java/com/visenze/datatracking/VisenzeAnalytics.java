@@ -4,6 +4,7 @@ package com.visenze.datatracking;
 
 import android.content.Context;
 
+import com.visenze.datatracking.data.DataCollection;
 import com.visenze.datatracking.utils.Utils;
 
 import java.util.Date;
@@ -11,12 +12,12 @@ import java.util.UUID;
 
 
 
-public class DataTracking {
+public class VisenzeAnalytics {
 
     public static final String TAG = "DataTracking";
     public static final long SESSION_TIMEOUT = 1800000; //30 min
 
-    private static DataTracking mInstance;
+    private static VisenzeAnalytics mInstance;
 
 
     private String uid;
@@ -26,7 +27,7 @@ public class DataTracking {
 
 
 
-    private DataTracking(Context context, String uid) {
+    private VisenzeAnalytics(Context context, String uid) {
         if (uid == null || uid.isEmpty()) {
             uid = getUid(context);
         }
@@ -41,24 +42,24 @@ public class DataTracking {
 
 
 
-    public static synchronized DataTracking getInstance(Context context) {
+    public static synchronized VisenzeAnalytics getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new DataTracking(context, null);
+            mInstance = new VisenzeAnalytics(context, null);
 
         }
         return mInstance;
     }
 
-    public static synchronized DataTracking getInstance(Context context, String uid) {
+    public static synchronized VisenzeAnalytics getInstance(Context context, String uid) {
         if(mInstance == null) {
-            mInstance = new DataTracking(context, uid);
+            mInstance = new VisenzeAnalytics(context, uid);
         }
         return mInstance;
     }
 
 
     public Tracker newTracker(String code, boolean isCN) {
-        Tracker t = new Tracker(code,  uid, Long.toString(sid), isCN);
+        Tracker t = new Tracker(code,  uid, Long.toString(sid), isCN, dataCollection);
         return t;
     }
 
