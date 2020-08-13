@@ -8,7 +8,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.util.Log;
 
-import com.visenze.datatracking.data.EventData;
+import com.visenze.datatracking.data.Event;
 
 import java.util.Locale;
 
@@ -73,8 +73,8 @@ public class DataCollection {
     }
 
 
-    public EventData createEvent() {
-        EventData event = new EventData();
+    public Event createEvent() {
+        Event event = new Event();
         event.setPlatform(platform);
         event.setOs(os);
         event.setOsVersion(osv);

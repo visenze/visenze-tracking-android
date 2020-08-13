@@ -25,17 +25,17 @@ public class EventsBody {
 
     @SerializedName("events")
     @Expose
-    private List<EventData> events;
+    private List<Event> events;
 
 
     public EventsBody(String uid) {
         this.uid = uid;
         this.v = BuildConfig.VERSION_NAME;
         this.sdk = Constants.SDK_NAME;
-        events = new ArrayList<EventData>();
+        events = new ArrayList<Event>();
     }
 
-    public void addEvents(List<EventData> data) {
+    public void addEvents(List<Event> data) {
         events.addAll(data);
     }
 

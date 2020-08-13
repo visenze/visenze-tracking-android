@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EventData {
+public class Event {
 
     public String getCategory() {
         return category;
@@ -546,7 +546,7 @@ public class EventData {
     private String s5;
 
 
-    public EventData() {
+    public Event() {
         Date date = new Date();
         timestamp = Long.toString(date.getTime());
     }
