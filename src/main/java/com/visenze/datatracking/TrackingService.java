@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
-public interface APIService {
+public interface TrackingService {
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @POST("events")

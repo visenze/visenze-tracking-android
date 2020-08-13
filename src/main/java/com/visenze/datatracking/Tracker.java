@@ -5,10 +5,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
-import com.visenze.datatracking.APIService;
-import com.visenze.datatracking.BuildConfig;
-import com.visenze.datatracking.Constants;
-import com.visenze.datatracking.HttpInstance;
 import com.visenze.datatracking.data.DataCollection;
 import com.visenze.datatracking.data.DataTrackingResponse;
 import com.visenze.datatracking.data.DeviceData;
@@ -27,7 +23,7 @@ import retrofit2.Response;
 public class Tracker {
 
     public static final String TAG = "Tracker";
-    private APIService apiService;
+    private TrackingService trackingService;
     private String code;
     private String uid;
     private String sid;
@@ -39,9 +35,9 @@ public class Tracker {
         this.uid = uid;
         this.sid = sid;
         if (isCN) {
-            apiService = HttpInstance.getRetrofitInstance(Constants.BASE_URL_CN).create(APIService.class);
+            trackingService = HttpInstance.getRetrofitInstance(Constants.BASE_URL_CN).create(TrackingService.class);
         } else {
-            apiService = HttpInstance.getRetrofitInstance(Constants.BASE_URL).create(APIService.class);
+            trackingService = HttpInstance.getRetrofitInstance(Constants.BASE_URL).create(TrackingService.class);
         }
 
         this.dataCollection = dataCollection;
@@ -57,17 +53,17 @@ public class Tracker {
 
     public void sendEvent(Event e) {
         if (code == null) {
-            Log.d(TAG, "please provide valid code");
+            Log.e(TAG, "please provide valid code");
             return;
         }
         if (!Event.isValidEvent(e)) {
-            Log.d(TAG, "Event is not valid, check missing fields !");
+            Log.e(TAG, "Event is not valid, check missing fields !");
         }
 
         addFields(e); // add additional field if not set by user.
         Map<String, String> map = e.toMap();
 
-        Call<Void> eventCall = apiService.sendEvent(code, Constants.SDK_NAME, BuildConfig.VERSION_NAME, map);
+        Call<Void> eventCall = trackingService.sendEvent(code, Constants.SDK_NAME, BuildConfig.VERSION_NAME, map);
         eventCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -76,7 +72,7 @@ public class Tracker {
                         String body = response.errorBody().string();
                         Gson gson = new Gson();
                         DataTrackingResponse resp = gson.fromJson(body, DataTrackingResponse.class);
-                        Log.d(TAG, "event send failed: " + resp.getError().getMessage());
+                        Log.e(TAG, "event send failed: " + resp.getError().getMessage());
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -85,14 +81,14 @@ public class Tracker {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.d(TAG, "call failed");
+                Log.e(TAG, "call failed");
             }
         });
     }
 
     public void sendEvents(List<Event> events) {
         if (code == null) {
-            Log.d(TAG, "please provide a valid code");
+            Log.e(TAG, "please provide a valid code");
             return;
         }
 
@@ -105,12 +101,12 @@ public class Tracker {
                     addFields(e);
                     body.addEvent(e);
                 } else {
-                    Log.d(TAG, "Event " + e.getAction() + " is not valid, check missing fields !");
+                    Log.e(TAG, "Event " + e.getAction() + " is not valid, check missing fields !");
                 }
             }
 
 
-            Call<DataTrackingResponse> eventCall = apiService.postEvents(code, body);
+            Call<DataTrackingResponse> eventCall = trackingService.postEvents(code, body);
             eventCall.enqueue(new Callback<DataTrackingResponse>() {
                 @Override
                 public void onResponse(Call<DataTrackingResponse> call, Response<DataTrackingResponse> response) {
@@ -120,7 +116,18 @@ public class Tracker {
                         for (int i = 0; i < results.size(); i++) {
                             ResultData result = results.get(i);
                             if (result.getCode() != 0) {
-                                Log.d(TAG, String.format("event %d send failed, msg: %s", i, result.getMessage()));
+                                Log.e(TAG, String.format("event %d send failed, msg: %s", i, result.getMessage()));
+                            }
+                        }
+                    } else {
+                        if(response.errorBody() != null) {
+                            try {
+                                String body = response.errorBody().string();
+                                Gson gson = new Gson();
+                                DataTrackingResponse resp = gson.fromJson(body, DataTrackingResponse.class);
+                                Log.e(TAG, "event send failed: " + resp.getError().getMessage());
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
                             }
                         }
                     }
@@ -128,7 +135,7 @@ public class Tracker {
 
                 @Override
                 public void onFailure(Call<DataTrackingResponse> call, Throwable t) {
-                    Log.d(TAG, "call failed");
+                    Log.e(TAG, "call failed");
                 }
             });
         }

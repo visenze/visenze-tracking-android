@@ -9,11 +9,39 @@ Visenze data tracking sdk is an open source software to send user defined data t
 
 ## 2. Setup and nitialization
 
-To initialize sdk, call init() method with application or activity context and a request code as parameter.
+To initialize sdk, extend Application and initialize the sdk with application context and request code.
+
+In manifest set the MyApplication as application name
+
+```
+    <application
+        android:name=".MyApplication"
+        ...
+    </application>
+```
+
 
 ```java
 
-DataTracking.getInstance().init(this, code);
+public class MyApplication extends Application {
+
+    private static VisenzeAnalytics dataTracking;
+    private static Tracker tracker;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        dataTracking = VisenzeAnalytics.getInstance(this);
+    }
+
+    synchronized public Tracker getDefaultTracker() {
+        if(tracker == null) {
+            String code = "YOUR CODE";
+            tracker = dataTracking.newTracker(code, false);
+        }
+        return tracker;
+    }
+}
 
 ```
 
@@ -23,34 +51,38 @@ You can also set a uid to data tracking sdk. If the uid is not set. By default, 
 in addition, you can also pass device information to sdk to help visenze better understand the customer and improve analytics.
 
 ```java
-DataTracking.getInstance().init(this, code, "YOUR UID");
 
-DeviceData d = new DeviceData();
-d.setAaid("Google Advertising ID");
-d.setDidmd5("Hashed device IMEI");
-d.setGeo("1.3521, 103.8198"); // geo info in Lat and Long, seperated by comma
-DataTracking.getInstance().setDeviceData(d);
+    Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+    DeviceData deviceData = new DeviceData();
+    deviceData.setDidmd5("HASHED_DEVICE_ID");
+    tracker.setDeviceData(deviceData);
+
 ```
-d.setAaid()
-
 
 ## 3. Send events
 
-After SDK has been initialized, use addEvent() to add events to the request queue.
+To create event,  use Event.createXXXEvent() with input parameters to create event.
 
 ```
-EventData e1 = DataTracking.getInstance().addEvent();
-e1.setAction(Constants.Action.SEARCH)
-
-EventData e2 = DataTracking.getInstance().addEvent();
-e2.setAction(Constants.Action.CLICK);
-e2.setQueryId("YOUR QUERY ID IN SEARCH API");
-
-DataTracking.getInstance().sendEvents();
+    Event e1 = Event.createViewEvent();
+    Event e2 = Event.createSearchEvent("QUERY_ID");
+    Event e3 = Event.createProductImpressionEvent("QUERY_ID", "PID", "IMAGE_UEL", "POSITION");
 ```
 
-addEvent() will add a new event in a queue to be send later and return the current event instance. Note that Event action is a mandatory field.
-Finally, sendEvents() will send out all events currently in the queue.
+use tracker.sendEvent(Event e) and tracker.sendEvents(List<Event> events)
 
+```
+
+    Tracker t = ((MyApplication) getApplication()).getDefaultTracker();
+    t.sendEvent(e1);  // send single event.
+
+    List<Event> events = new ArrayList<Event> ();
+    events.add(e2);
+    events.add(e3);
+    t.sendEvents(events);
+```
+
+Note that Event.createXXXEvents will create events with all necessary parameters. putting null value in the parameter will not be able to create an valid event.
+please search in log to see the error messages for failed events 
 
 

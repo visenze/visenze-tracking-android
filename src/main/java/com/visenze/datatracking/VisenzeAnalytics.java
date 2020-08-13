@@ -29,7 +29,7 @@ public class VisenzeAnalytics {
 
     private VisenzeAnalytics(Context context, String uid) {
         if (uid == null || uid.isEmpty()) {
-            uid = getUid(context);
+            uid = generateUid(context);
         }
         initDataTracking(context, uid);
     }
@@ -64,7 +64,7 @@ public class VisenzeAnalytics {
     }
 
 
-    private String getUid(Context context) {
+    private String generateUid(Context context) {
         String uid = Utils.getUid(context);
         if (uid == null || uid.isEmpty()) {
             uid = UUID.randomUUID().toString();
