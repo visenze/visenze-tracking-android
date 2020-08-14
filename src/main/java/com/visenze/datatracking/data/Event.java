@@ -5,9 +5,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.visenze.datatracking.Constants;
 
-import java.math.BigDecimal;
+
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Event {
@@ -28,7 +27,7 @@ public class Event {
         return timestamp;
     }
 
-    public String getValue() {
+    public Double getValue() {
         return value;
     }
 
@@ -72,7 +71,7 @@ public class Event {
         return imageUrl;
     }
 
-    public String getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
@@ -80,7 +79,7 @@ public class Event {
         return brand;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -208,7 +207,7 @@ public class Event {
         this.timestamp = timestamp;
     }
 
-    public void setValue(String value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
@@ -252,7 +251,7 @@ public class Event {
         this.imageUrl = imageUrl;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 
@@ -260,7 +259,7 @@ public class Event {
         this.brand = brand;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -390,7 +389,7 @@ public class Event {
 
     @SerializedName("value")
     @Expose
-    private String value;
+    private Double value;
 
     @SerializedName("label")
     @Expose
@@ -434,7 +433,7 @@ public class Event {
 
     @SerializedName("pos")
     @Expose
-    private String position;
+    private Integer position;
 
     @SerializedName("brand")
     @Expose
@@ -442,7 +441,7 @@ public class Event {
 
     @SerializedName("price")
     @Expose
-    private String price;
+    private Double price;
 
     @SerializedName("currency")
     @Expose
@@ -570,11 +569,11 @@ public class Event {
         }
 
         if (action.equals(Constants.Action.PRODUCT_CLICK) || action.equals(Constants.Action.PRODUCT_VIEW) || action.equals(Constants.Action.ADD_TO_CART)) {
-            return (e.queryId != null && e.pid != null && e.imageUrl != null && e.position != null);
+            return (e.queryId != null && e.pid != null && e.imageUrl != null);
         }
 
         if (action.equals(Constants.Action.TRANSACTION)) {
-            return (e.queryId != null && e.transactionId != null && e.value != null);
+            return (e.queryId != null && e.transactionId != null);
         }
         return true;
     }
@@ -606,7 +605,7 @@ public class Event {
         event.setQueryId(queryId);
         event.setPid(pid);
         event.setImageUrl(imgUrl);
-        event.setPosition(Integer.toString(pos));
+        event.setPosition(pos);
         return event;
     }
 
@@ -616,7 +615,7 @@ public class Event {
         event.setQueryId(queryId);
         event.setPid(pid);
         event.setImageUrl(imgUrl);
-        event.setPosition(Integer.toString(pos));
+        event.setPosition(pos);
         return event;
     }
 
@@ -626,7 +625,7 @@ public class Event {
         event.setQueryId(queryId);
         event.setPid(pid);
         event.setImageUrl(imgUrl);
-        event.setPosition(Integer.toString(pos));
+        event.setPosition(pos);
         return event;
     }
 
@@ -636,7 +635,7 @@ public class Event {
         event.setAction(Constants.Action.TRANSACTION);
         event.setQueryId(queryId);
         event.setTransactionId(transactionId);
-        event.setValue(Double.toString(value));
+        event.setValue(value);
         return event;
     }
 
