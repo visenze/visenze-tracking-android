@@ -2,9 +2,6 @@ package com.visenze.datatracking;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import com.visenze.datatracking.utils.Utils;
 
 import java.util.Date;
 import java.util.UUID;

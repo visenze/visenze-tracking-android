@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">datatracking</string>
-    <string name="key_uid">key_uid</string>
-    <string name="key_sid">key_sid</string>
+    <string name="va_app_name">datatracking</string>
+
 </resources>

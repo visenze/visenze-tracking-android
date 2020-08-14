@@ -605,7 +605,7 @@ public class Event {
     }
 
 
-    
+
 
     protected Event() {
         Date date = new Date();
