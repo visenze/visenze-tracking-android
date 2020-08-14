@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import com.visenze.datatracking.Constants;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
@@ -546,7 +547,65 @@ public class Event {
     @Expose
     private String s5;
 
+    @Expose
+    private BigDecimal n1;
 
+    @Expose
+    private BigDecimal n2;
+
+    @Expose
+    private BigDecimal n3;
+
+    @Expose
+    private BigDecimal n4;
+
+    @Expose
+    private BigDecimal n5;
+
+
+    public BigDecimal getN1() {
+        return n1;
+    }
+
+    public BigDecimal getN2() {
+        return n2;
+    }
+
+    public BigDecimal getN3() {
+        return n3;
+    }
+
+    public BigDecimal getN4() {
+        return n4;
+    }
+
+    public BigDecimal getN5() {
+        return n5;
+    }
+
+
+    public void setN1(BigDecimal n1) {
+        this.n1 = n1;
+    }
+
+    public void setN2(BigDecimal n2) {
+        this.n2 = n2;
+    }
+
+    public void setN3(BigDecimal n3) {
+        this.n3 = n3;
+    }
+
+    public void setN4(BigDecimal n4) {
+        this.n4 = n4;
+    }
+
+    public void setN5(BigDecimal n5) {
+        this.n5 = n5;
+    }
+
+
+    
 
     protected Event() {
         Date date = new Date();
