@@ -26,14 +26,14 @@ public class Tracker {
     private TrackingService trackingService;
     private String code;
     private String uid;
-    private String sid;
     private DeviceData mDeviceData;
     private DataCollection dataCollection;
+    private SessionManager sessionManager;
 
-    public Tracker(String code, String uid, String sid, boolean isCN, DataCollection dataCollection) {
+    public Tracker(@NonNull String code, boolean isCN, SessionManager sessionManager, DataCollection dataCollection) {
         this.code = code;
-        this.uid = uid;
-        this.sid = sid;
+        this.sessionManager = sessionManager;
+        this.uid = sessionManager.getUid();
         if (isCN) {
             trackingService = HttpInstance.getRetrofitInstance(Constants.BASE_URL_CN).create(TrackingService.class);
         } else {
@@ -53,8 +53,7 @@ public class Tracker {
 
     public void sendEvent(Event e) {
         if (code == null) {
-            Log.e(TAG, "please provide valid code");
-            return;
+            throw new RuntimeException("code must not be null");
         }
         if (!Event.isValidEvent(e)) {
             Log.e(TAG, "Event is not valid, check missing fields !");
@@ -88,8 +87,7 @@ public class Tracker {
 
     public void sendEvents(List<Event> events) {
         if (code == null) {
-            Log.e(TAG, "please provide a valid code");
-            return;
+            throw new RuntimeException("code must not be null");
         }
 
 
@@ -146,6 +144,7 @@ public class Tracker {
             e.setUid(uid);
         }
         if(e.getSessionId() == null) {
+            String sid = sessionManager.getSessionId();
             e.setSessionId(sid);
         }
         if(mDeviceData != null) {

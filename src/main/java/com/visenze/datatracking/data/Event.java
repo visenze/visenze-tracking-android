@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.visenze.datatracking.Constants;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class Event {
         return name;
     }
 
-    public String getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
@@ -203,7 +204,7 @@ public class Event {
         this.name = name;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -385,7 +386,7 @@ public class Event {
 
     @SerializedName("ts")
     @Expose
-    private String timestamp;
+    private long timestamp;
 
     @SerializedName("value")
     @Expose
@@ -550,7 +551,7 @@ public class Event {
 
     protected Event() {
         Date date = new Date();
-        timestamp = Long.toString(date.getTime());
+        timestamp = date.getTime();
     }
 
     public Map<String, String> toMap() {
@@ -566,9 +567,13 @@ public class Event {
         }
         if (action.equals(Constants.Action.SEARCH)) {
             return (e.queryId != null);
-        } else if (action.equals(Constants.Action.PRODUCT_CLICK) || action.equals(Constants.Action.PRODUCT_VIEW) || action.equals(Constants.Action.ADD_TO_CART)) {
+        }
+
+        if (action.equals(Constants.Action.PRODUCT_CLICK) || action.equals(Constants.Action.PRODUCT_VIEW) || action.equals(Constants.Action.ADD_TO_CART)) {
             return (e.queryId != null && e.pid != null && e.imageUrl != null && e.position != null);
-        } else if (action.equals(Constants.Action.TRANSACTION)) {
+        }
+
+        if (action.equals(Constants.Action.TRANSACTION)) {
             return (e.queryId != null && e.transactionId != null && e.value != null);
         }
         return true;

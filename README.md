@@ -47,14 +47,14 @@ public class MyApplication extends Application {
 
 please contact visenze to get a code to uniquely identify your application.
 
-You can also set a uid to data tracking sdk. If the uid is not set. By default, the sdk will generate unique id to identify the customer.
+You can also set a uid to data tracking sdk. If uid is not set, a random (non-personalizable) string will be generated to identify the application for analytics purposes.
 in addition, you can also pass device information to sdk to help visenze better understand the customer and improve analytics.
 
 ```java
 
     Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
     DeviceData deviceData = new DeviceData();
-    deviceData.setDidmd5("HASHED_DEVICE_ID");
+    deviceData.setDidmd5("MD5 hased device ID");
     tracker.setDeviceData(deviceData);
 
 ```
@@ -66,7 +66,7 @@ To create event,  use Event.createXXXEvent() with input parameters to create eve
 ```
     Event e1 = Event.createViewEvent();
     Event e2 = Event.createSearchEvent("QUERY_ID");
-    Event e3 = Event.createProductImpressionEvent("QUERY_ID", "PID", "IMAGE_UEL", "POSITION");
+    Event e3 = Event.createProductImpressionEvent("QUERY_ID", "PID", "IMAGE_URL", 0);
 ```
 
 use tracker.sendEvent(Event e) and tracker.sendEvents(List<Event> events)
@@ -82,7 +82,8 @@ use tracker.sendEvent(Event e) and tracker.sendEvents(List<Event> events)
     t.sendEvents(events);
 ```
 
-Note that Event.createXXXEvents will create events with all necessary parameters. putting null value in the parameter will not be able to create an valid event.
-please search in log to see the error messages for failed events 
+Note that Event.createXXXEvents will create events with all necessary parameters. Invalid events missing required parameters will not be sent to server.
+                                                                                  .
+please search in log to see the error messages for failed events
 
 
