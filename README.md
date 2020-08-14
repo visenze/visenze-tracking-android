@@ -66,7 +66,7 @@ To create event,  use Event.createXXXEvent() with input parameters to create eve
 ```
     Event e1 = Event.createViewEvent();
     Event e2 = Event.createSearchEvent("QUERY_ID");
-    Event e3 = Event.createProductImpressionEvent("QUERY_ID", "PID", "IMAGE_URL", 0);
+    Event e3 = Event.createProductImpressionEvent("QUERY_ID", "PID", "IMAGE_URL", 1);
 ```
 
 use tracker.sendEvent(Event e) and tracker.sendEvents(List<Event> events)
