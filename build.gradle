@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 
 def versionMajor = 0
@@ -25,6 +26,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+}
+
+publish {
+
+    def groupProjectID = 'com.visenze.datatracking'
+    def artifactProjectID = 'tracking'
+    def publishVersionID = "${versionMajor}.${versionMinor}.${versionPatch}"
+
+    userOrg = 'visenze'
+    repoName = 'tracking'
+    groupId = groupProjectID
+    artifactId = artifactProjectID
+    publishVersion = publishVersionID
+    desc = 'Visenze data tracking sdk is an open source software to send user defined data tracking event to visenze for performance monitoring and analytic purpose.'
+    website = 'https://github.com/visenze/visenze-tracking-android.git'
 
 }
 

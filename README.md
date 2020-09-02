@@ -8,6 +8,12 @@ Android SDK for Visenze data tracking
 Visenze data tracking sdk is an open source software to send user defined data tracking event to visenze for performance monitoring and analytic purpose.
 
 ## 2. Setup and nitialization
+include project dependency into gradle file
+
+```
+implementation 'com.visenze.datatracking:tracking:0.1.0'
+```
+
 
 To initialize sdk, extend Application and initialize the sdk with application context and request code.
 
@@ -85,5 +91,3 @@ use tracker.sendEvent(Event e) and tracker.sendEvents(List<Event> events)
 Note that Event.createXXXEvents will create events with all necessary parameters. Invalid events missing required parameters will not be sent to server.
                                                                                   .
 please search in log to see the error messages for failed events
-
-
