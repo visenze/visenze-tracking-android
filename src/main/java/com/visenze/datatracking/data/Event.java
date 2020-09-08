@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.visenze.datatracking.Constants;
+import com.visenze.datatracking.data.json.JsonStringSerializer;
 
 
 import java.math.BigDecimal;
@@ -604,16 +605,13 @@ public class Event {
         this.n5 = n5;
     }
 
-
-
-
     protected Event() {
         Date date = new Date();
         timestamp = date.getTime();
     }
 
     public Map<String, String> toMap() {
-        Gson gson = new Gson();
+        Gson gson = JsonStringSerializer.getStringSerializer();
         String jStr = gson.toJson(this);
         return gson.fromJson(jStr, Map.class);
     }
