@@ -38,6 +38,13 @@ public abstract class JsonStringSerializer {
             }
         });
 
+        gsonBuilder.registerTypeAdapter(Integer.class,  new JsonSerializer<Integer>() {
+            @Override
+            public JsonElement serialize(final Integer src, final Type typeOfSrc, final JsonSerializationContext context) {
+                return getJsonElement(src == null, BigDecimal.valueOf(src));
+            }
+        });
+
     }
 
     private static JsonElement getJsonElement(boolean isNull, BigDecimal bigDecimal) {

@@ -22,6 +22,9 @@ public class EventTest {
         // float
         event.setValue(3.25);
 
+        // int
+        event.setPosition(3);
+
         // big decimal
         event.setN1(new BigDecimal("212"));
         event.setN2(BigDecimal.valueOf(565.4));
@@ -33,6 +36,7 @@ public class EventTest {
         assertEquals("3.25" , map.get("value"));
         assertEquals("212", map.get("n1"));
         assertEquals("565.4", map.get("n2"));
+        assertEquals("3", map.get("pos"));
 
     }
 }
