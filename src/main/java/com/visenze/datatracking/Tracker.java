@@ -23,6 +23,7 @@ import retrofit2.Response;
 public class Tracker {
 
     public static final String TAG = "Tracker";
+
     private TrackingService trackingService;
     private String code;
     private String uid;
@@ -55,8 +56,10 @@ public class Tracker {
         if (code == null) {
             throw new RuntimeException("code must not be null");
         }
+
         if (!Event.isValidEvent(e)) {
-            Log.e(TAG, "Event is not valid, check missing fields !");
+            warnMissingEventFields(e);
+            return;
         }
 
         addFields(e); // add additional field if not set by user.
@@ -99,10 +102,9 @@ public class Tracker {
                     addFields(e);
                     body.addEvent(e);
                 } else {
-                    Log.e(TAG, "Event " + e.getAction() + " is not valid, check missing fields !");
+                    warnMissingEventFields(e);
                 }
             }
-
 
             Call<DataTrackingResponse> eventCall = trackingService.postEvents(code, body);
             eventCall.enqueue(new Callback<DataTrackingResponse>() {
@@ -133,20 +135,28 @@ public class Tracker {
 
                 @Override
                 public void onFailure(Call<DataTrackingResponse> call, Throwable t) {
-                    Log.e(TAG, "call failed");
+                    Log.e(TAG, "failed to send events batch");
                 }
             });
         }
+    }
+
+    private void warnMissingEventFields(Event event) {
+        if (event == null) return;
+
+        Log.e(TAG, "Event: " + event.toMap() + " is not valid, check missing fields !");
     }
 
     private void addFields(Event e) {
         if(e.getUid() == null) {
             e.setUid(uid);
         }
+
         if(e.getSessionId() == null) {
             String sid = sessionManager.getSessionId();
             e.setSessionId(sid);
         }
+
         if(mDeviceData != null) {
             if(e.getAaid() == null) {
                 e.setAaid(mDeviceData.getAaid());

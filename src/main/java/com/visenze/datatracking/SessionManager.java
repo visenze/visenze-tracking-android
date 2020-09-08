@@ -40,19 +40,28 @@ public class SessionManager {
     protected String getSessionId() {
         Date date = new Date();
         long now = date.getTime();
-        if (sessionTimestamp == 0 || now - sessionTimestamp > SESSION_TIMEOUT || !isSameDay(sessionTimestamp, now)) {
+        if (isSessionExpired(now)) {
             sessionTimestamp = now;
             sid = UUID.randomUUID().toString();
-            // save sid and timestamp in preference
-            putLongPref(KEY_SID_TIMESTAMP, sessionTimestamp);
-            putStringPref(KEY_SID, sid);
+            saveSession2LocalStorage();
+
         } else {
             // if tracker call getSessionId() means in send means it is still active.
             // update timestamp to the now
             sessionTimestamp = now;
-
         }
+
         return sid;
+    }
+
+    public void saveSession2LocalStorage() {
+        // save sid and timestamp in preference
+        putLongPref(KEY_SID_TIMESTAMP, sessionTimestamp);
+        putStringPref(KEY_SID, sid);
+    }
+
+    private boolean isSessionExpired(long now) {
+        return sessionTimestamp == 0 || now - sessionTimestamp > SESSION_TIMEOUT || !isSameDay(sessionTimestamp, now);
     }
 
     private boolean isSameDay(long t1, long t2) {
@@ -65,7 +74,6 @@ public class SessionManager {
         String uid = getStringPref(KEY_UID);
         if (uid.isEmpty()) {
             uid = UUID.randomUUID().toString();
-            uid = uid.replace("-", "");
             // save uid in preference.
             putStringPref(KEY_UID, uid);
          }
