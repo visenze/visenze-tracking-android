@@ -29,7 +29,7 @@ public class Event {
         return timestamp;
     }
 
-    public Double getValue() {
+    public String getValue() {
         return value;
     }
 
@@ -209,7 +209,7 @@ public class Event {
         this.timestamp = timestamp;
     }
 
-    public void setValue(Double value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -391,7 +391,7 @@ public class Event {
 
     @SerializedName("value")
     @Expose
-    private Double value;
+    private String value;
 
     @SerializedName("label")
     @Expose
@@ -644,6 +644,12 @@ public class Event {
     }
 
 
+    public static Event createCustomEvent(String action) {
+        Event event = new Event();
+        event.setAction(action);
+        return event;
+    }
+
     public static Event createClickEvent() {
         Event event = new Event();
         event.setAction(Constants.Action.CLICK);
@@ -692,7 +698,7 @@ public class Event {
         event.setAction(Constants.Action.TRANSACTION);
         event.setQueryId(queryId);
         event.setTransactionId(transactionId);
-        event.setValue(value);
+        event.setValue(String.valueOf(value));
         return event;
     }
 

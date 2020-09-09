@@ -19,8 +19,8 @@ public class EventTest {
         String category = "abc";
         event.setCategory(category);
 
-        // float
-        event.setValue(3.25);
+        event.setValue("3.25");
+        event.setPrice(3.24);
 
         // int
         event.setPosition(3);
@@ -33,6 +33,7 @@ public class EventTest {
 
         assertEquals(category, map.get("cat"));
         assertEquals("1598973779000", map.get("ts"));
+        assertEquals("3.24" , map.get("price"));
         assertEquals("3.25" , map.get("value"));
         assertEquals("212", map.get("n1"));
         assertEquals("565.4", map.get("n2"));
