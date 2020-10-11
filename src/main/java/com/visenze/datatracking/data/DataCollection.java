@@ -78,14 +78,16 @@ public class DataCollection {
 
 
     private void getAppInfo(Context context) {
-        appId = context.getPackageName();
+        appId = limitMaxLength(context.getPackageName(), 32);
         try {
             final PackageManager pm = context.getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(appId, 0);
             appName = (String) pm.getApplicationLabel(ai);
+            appName = limitMaxLength(appName, 32);
 
             PackageInfo pInfo = pm.getPackageInfo(appId, 0);
-            appVersion = pInfo.versionName;
+
+            appVersion = limitMaxLength(pInfo.versionName, 32);
 
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(TAG, "unable to get packageInfo ");
@@ -98,7 +100,7 @@ public class DataCollection {
         os = Constants.OS;
         int apiVersion = android.os.Build.VERSION.SDK_INT;
         osv = Integer.toString(apiVersion);
-        deviceBrand = Build.MANUFACTURER;
+        deviceBrand = limitMaxLength(Build.MANUFACTURER, 32);
         String model = Build.MODEL;
         if (model != null && model.toLowerCase().startsWith(deviceBrand.toLowerCase())) {
             deviceModel = model;
@@ -106,13 +108,20 @@ public class DataCollection {
             deviceModel = deviceBrand + " " + model;
         }
 
+        deviceModel = limitMaxLength(deviceModel, 32);
+
         int width = Resources.getSystem().getDisplayMetrics().widthPixels;
         int height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
         screenResolution = width + "x" + height;
-        language = Locale.getDefault().toLanguageTag();
+        language = limitMaxLength(Locale.getDefault().toLanguageTag(), 32);
     }
 
+    private String limitMaxLength(String s, int maxLength) {
+        if (s == null) return null;
+        if (s.length() > maxLength) return s.substring(0, maxLength);
+        return s;
+    }
 
 
 

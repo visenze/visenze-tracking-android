@@ -11,7 +11,7 @@ Visenze data tracking sdk is an open source software to send user defined data t
 include project dependency into gradle file
 
 ```
-implementation 'com.visenze.datatracking:tracking:0.1.6'
+implementation 'com.visenze.datatracking:tracking:0.1.7'
 ```
 
 
