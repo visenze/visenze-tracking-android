@@ -37,7 +37,7 @@ public class SessionManager {
         return uid;
     }
 
-    protected String getSessionId() {
+    public String getSessionId() {
         Date date = new Date();
         long now = date.getTime();
         if (isSessionExpired(now)) {
