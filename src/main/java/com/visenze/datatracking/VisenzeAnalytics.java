@@ -16,11 +16,8 @@ public class VisenzeAnalytics {
 
     private static VisenzeAnalytics mInstance;
 
-
     private DataCollection dataCollection;
     private SessionManager sessionManager;
-
-
 
     private VisenzeAnalytics(Context context, String uid) {
         dataCollection = new DataCollection(context);
@@ -44,6 +41,11 @@ public class VisenzeAnalytics {
         return t;
     }
 
+    public DataCollection getDataCollection() {
+        return dataCollection;
+    }
 
-
+    public SessionManager getSessionManager() {
+        return sessionManager;
+    }
 }
