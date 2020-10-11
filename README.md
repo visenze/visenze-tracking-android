@@ -11,7 +11,7 @@ Visenze data tracking sdk is an open source software to send user defined data t
 include project dependency into gradle file
 
 ```
-implementation 'com.visenze.datatracking:tracking:0.1.4'
+implementation 'com.visenze.datatracking:tracking:0.1.5'
 ```
 
 
@@ -71,7 +71,7 @@ To create event,  use Event.createXXXEvent() with input parameters to create eve
 
 ```
     Event e1 = Event.createViewEvent();
-    Event e2 = Event.createSearchEvent("QUERY_ID");
+    Event e2 = Event.createProductClickEvent("QUERY_ID", "PID", "IMAGE_URL", 1)
     Event e3 = Event.createProductImpressionEvent("QUERY_ID", "PID", "IMAGE_URL", 1);
 ```
 
