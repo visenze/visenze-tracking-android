@@ -114,7 +114,12 @@ public class DataCollection {
         int height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
         screenResolution = width + "x" + height;
-        language = limitMaxLength(Locale.getDefault().toLanguageTag(), 32);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            language = limitMaxLength(Locale.getDefault().toLanguageTag(), 32);
+        } else {
+            language = limitMaxLength(Locale.getDefault().toString(), 32);
+        }
     }
 
     private String limitMaxLength(String s, int maxLength) {
