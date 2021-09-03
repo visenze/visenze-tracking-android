@@ -1,11 +1,13 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+plugins {
+    id 'com.android.library'
+}
 
 
 def versionMajor = 0
 def versionMinor = 1
 def versionPatch = 9
 
+def version = "0.1.9"
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -15,7 +17,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        buildConfigField("String","VERSION_NAME","\"${version}\"")
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -29,21 +32,6 @@ android {
 
 }
 
-publish {
-
-    def groupProjectID = 'com.visenze.datatracking'
-    def artifactProjectID = 'tracking'
-    def publishVersionID = "${versionMajor}.${versionMinor}.${versionPatch}"
-
-    userOrg = 'visenze'
-    repoName = 'tracking'
-    groupId = groupProjectID
-    artifactId = artifactProjectID
-    publishVersion = publishVersionID
-    desc = 'Visenze data tracking sdk is an open source software to send user defined data tracking event to visenze for performance monitoring and analytic purpose.'
-    website = 'https://github.com/visenze/visenze-tracking-android.git'
-
-}
 
 dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
