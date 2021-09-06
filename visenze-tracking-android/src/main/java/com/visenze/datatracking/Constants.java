@@ -12,12 +12,14 @@ public class Constants {
         public static final String SEARCH = "search";
         public static final String CLICK = "click";
         public static final String VIEW = "view";
+        public static final String RES_LOAD = "result_load";
         public static final String PRODUCT_CLICK = "product_click";
         public static final String PRODUCT_VIEW = "product_view";
         public static final String INSTALL = "app_install";
         public static final String UNINSTALL = "app_uninstall";
         public static final String TRANSACTION = "transaction";
         public static final String ADD_TO_CART = "add_to_cart";
+
     }
 
 

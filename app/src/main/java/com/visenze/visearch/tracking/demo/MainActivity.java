@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.visenze.datatracking.Tracker;
+import com.visenze.datatracking.VisenzeAnalytics;
 import com.visenze.visearch.tracking.demo.databinding.ActivityMainBinding;
 
 import android.view.Menu;
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private VisenzeAnalytics visenzeAnalytics;
+    private Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        visenzeAnalytics = VisenzeAnalytics.getInstance(this);
+        tracker = visenzeAnalytics.newTracker("code", false);
+
     }
 
     @Override
