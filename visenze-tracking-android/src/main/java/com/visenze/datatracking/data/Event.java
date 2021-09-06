@@ -662,6 +662,14 @@ public class Event {
         return event;
     }
 
+    public static Event createResultLoadEvent(String queryId, String pid) {
+        Event event = new Event();
+        event.setAction(Constants.Action.RES_LOAD);
+        event.setQueryId(queryId);
+        event.setPid(pid);
+        return event;
+    }
+
     public static Event createProductClickEvent(String queryId, String pid, String imgUrl, int pos) {
         Event event = new Event();
         event.setAction(Constants.Action.PRODUCT_CLICK);

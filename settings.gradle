@@ -1,0 +1,3 @@
+rootProject.name = "TrackingDemo"
+include ':app'
+include ':visenze-tracking-android'
