@@ -726,12 +726,7 @@ public class Event {
         Event event = new Event();
         event.setAction(Constants.Action.TRANSACTION);
         event.setQueryId(queryId);
-
-        if (transactionId != null) {
-            event.setTransactionId(transactionId);
-        } else {
-            event.setTransactionId(generateRandomTransId());
-        }
+        event.setTransactionId(transactionId);
         event.setValue(String.valueOf(value));
         return event;
     }

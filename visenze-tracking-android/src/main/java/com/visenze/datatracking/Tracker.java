@@ -62,6 +62,11 @@ public class Tracker {
             return;
         }
 
+        // generate random trans id if not provided
+        if (e.isTransactionEvent() && e.getTransactionId() == null) {
+            e.setTransactionId(Event.generateRandomTransId());
+        }
+
         addFields(e); // add additional field if not set by user.
         Map<String, String> map = e.toMap();
 
@@ -95,6 +100,8 @@ public class Tracker {
 
         if (events.size() > 0) {
             EventsBody body = new EventsBody(uid);
+
+            // for batch events, use same generated trans id if missing
             String randomTransId = Event.generateRandomTransId();
 
             for(Event e : events) {
