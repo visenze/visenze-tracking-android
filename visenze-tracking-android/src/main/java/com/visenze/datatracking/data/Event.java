@@ -651,7 +651,6 @@ public class Event {
         return event;
     }
 
-
     public static Event createCustomEvent(String action) {
         Event event = new Event();
         event.setAction(action);
@@ -678,49 +677,52 @@ public class Event {
         return event;
     }
 
-    public static Event createProductClickEvent(String queryId, String pid, String imgUrl, int pos) {
-        Event event = new Event();
-        event.setAction(Constants.Action.PRODUCT_CLICK);
-        event.setQueryId(queryId);
-        event.setPid(pid);
-        event.setImageUrl(imgUrl);
-        event.setPosition(pos);
+    public static Event createProductClickEvent(String queryId, String pid) {
+        return createProductClickEvent(queryId, pid, null, 0);
+    }
 
-        return event;
+    public static Event createProductClickEvent(String queryId, String pid, String imgUrl, int pos) {
+        return createProductRelatedEvent(Constants.Action.PRODUCT_CLICK, queryId, pid, imgUrl, pos);
+    }
+
+    public static Event createProductImpressionEvent(String queryId, String pid) {
+        return createProductImpressionEvent(queryId, pid, null, 0);
     }
 
     public static Event createProductImpressionEvent(String queryId, String pid, String imgUrl, int pos) {
-        Event event = new Event();
-        event.setAction(Constants.Action.PRODUCT_VIEW);
-        event.setQueryId(queryId);
-        event.setPid(pid);
-        event.setImageUrl(imgUrl);
-        event.setPosition(pos);
-        return event;
+        return createProductRelatedEvent(Constants.Action.PRODUCT_VIEW, queryId, pid, imgUrl, pos);
+    }
+
+    public static Event createAddCartEvent(String queryId, String pid) {
+        return createAddCartEvent(queryId, pid, null, 0);
     }
 
     public static Event createAddCartEvent(String queryId, String pid, String imgUrl, int pos) {
-        Event event = new Event();
-        event.setAction(Constants.Action.ADD_TO_CART);
-        event.setQueryId(queryId);
-        event.setPid(pid);
-        event.setImageUrl(imgUrl);
-        event.setPosition(pos);
+        return createProductRelatedEvent(Constants.Action.ADD_TO_CART, queryId, pid, imgUrl, pos);
+    }
 
-        return event;
+    public static Event createAddToWishListEvent(String queryId, String pid) {
+        return createAddToWishListEvent(queryId, pid, null, 0);
     }
 
     public static Event createAddToWishListEvent(String queryId, String pid, String imgUrl, int pos) {
+        return createProductRelatedEvent(Constants.Action.ADD_TO_WISHLIST, queryId, pid, imgUrl, pos);
+    }
+
+    private static Event createProductRelatedEvent(String action, String queryId, String pid, String imgUrl, int pos) {
         Event event = new Event();
-        event.setAction(Constants.Action.ADD_TO_WISHLIST);
+        event.setAction(action);
         event.setQueryId(queryId);
         event.setPid(pid);
         event.setImageUrl(imgUrl);
         event.setPosition(pos);
-
         return event;
     }
 
+
+    public static Event createTransactionEvent(String queryId, double value) {
+        return createTransactionEvent(queryId, null, value);
+    }
 
     public static Event createTransactionEvent(String queryId, String transactionId, double value) {
         Event event = new Event();
