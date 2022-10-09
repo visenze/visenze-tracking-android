@@ -563,7 +563,6 @@ public class Event {
     @Expose
     private BigDecimal n5;
 
-
     public BigDecimal getN1() {
         return n1;
     }
@@ -583,7 +582,6 @@ public class Event {
     public BigDecimal getN5() {
         return n5;
     }
-
 
     public void setN1(BigDecimal n1) {
         this.n1 = n1;

@@ -116,9 +116,9 @@ public class DataCollection {
         screenResolution = width + "x" + height;
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            language = limitMaxLength(Locale.getDefault().toLanguageTag(), 32);
+            language = limitMaxLength(Locale.getDefault().toLanguageTag(), 16);
         } else {
-            language = limitMaxLength(Locale.getDefault().toString(), 32);
+            language = limitMaxLength(Locale.getDefault().toString(), 16);
         }
     }
 
