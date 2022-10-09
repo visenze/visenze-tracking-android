@@ -626,11 +626,11 @@ public class Event {
         }
 
         if (action.equals(Constants.Action.PRODUCT_CLICK) || action.equals(Constants.Action.PRODUCT_VIEW) || action.equals(Constants.Action.ADD_TO_CART)) {
-            return (e.queryId != null && e.pid != null && e.imageUrl != null);
+            return (e.queryId != null && e.pid != null);
         }
 
         if (action.equals(Constants.Action.TRANSACTION)) {
-            return (e.queryId != null && e.transactionId != null);
+            return (e.queryId != null);
         }
         return true;
     }
