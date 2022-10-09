@@ -625,7 +625,10 @@ public class Event {
             return (e.queryId != null);
         }
 
-        if (action.equals(Constants.Action.PRODUCT_CLICK) || action.equals(Constants.Action.PRODUCT_VIEW) || action.equals(Constants.Action.ADD_TO_CART)) {
+        if (action.equals(Constants.Action.PRODUCT_CLICK)
+                || action.equals(Constants.Action.PRODUCT_VIEW)
+                || action.equals(Constants.Action.ADD_TO_CART)
+                || action.equals(Constants.Action.ADD_TO_WISHLIST)) {
             return (e.queryId != null && e.pid != null);
         }
 
@@ -696,7 +699,21 @@ public class Event {
         event.setQueryId(queryId);
         event.setPid(pid);
         event.setImageUrl(imgUrl);
-        event.setPosition(pos);
+        if (pos > 0) {
+            event.setPosition(pos);
+        }
+        return event;
+    }
+
+    public static Event createAddToWishListEvent(String queryId, String pid, String imgUrl, int pos) {
+        Event event = new Event();
+        event.setAction(Constants.Action.ADD_TO_WISHLIST);
+        event.setQueryId(queryId);
+        event.setPid(pid);
+        event.setImageUrl(imgUrl);
+        if (pos > 0) {
+            event.setPosition(pos);
+        }
         return event;
     }
 
