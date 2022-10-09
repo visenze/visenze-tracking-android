@@ -93,13 +93,18 @@ public class Tracker {
             throw new RuntimeException("code must not be null");
         }
 
-
         if (events.size() > 0) {
             EventsBody body = new EventsBody(uid);
+            String randomTransId = Event.generateRandomTransId();
 
             for(Event e : events) {
                 if(Event.isValidEvent(e)) {
                     addFields(e);
+
+                    if (e.isTransactionEvent() && e.getTransactionId() == null) {
+                        e.setTransactionId(randomTransId);
+                    }
+
                     body.addEvent(e);
                 } else {
                     warnMissingEventFields(e);
@@ -183,5 +188,11 @@ public class Tracker {
         }
     }
 
+    public String getUid() {
+        return uid;
+    }
 
+    public String getSessionId() {
+        return sessionManager.getSessionId();
+    }
 }

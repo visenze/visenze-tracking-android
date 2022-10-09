@@ -10,6 +10,7 @@ import com.visenze.datatracking.data.json.JsonStringSerializer;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 public class Event {
 
@@ -254,7 +255,9 @@ public class Event {
     }
 
     public void setPosition(int position) {
-        this.position = position;
+        if (position > 0) {
+            this.position = position;
+        }
     }
 
     public void setBrand(String brand) {
@@ -614,6 +617,7 @@ public class Event {
         return gson.fromJson(jStr, Map.class);
     }
 
+
     public static boolean isValidEvent(Event e) {
         String action = e.getAction();
         if(action == null) {
@@ -636,6 +640,9 @@ public class Event {
         return true;
     }
 
+    public boolean isTransactionEvent() {
+        return Constants.Action.TRANSACTION.equals(action);
+    }
 
     public static Event createSearchEvent(String queryId) {
         Event event = new Event();
@@ -678,6 +685,7 @@ public class Event {
         event.setPid(pid);
         event.setImageUrl(imgUrl);
         event.setPosition(pos);
+
         return event;
     }
 
@@ -697,9 +705,8 @@ public class Event {
         event.setQueryId(queryId);
         event.setPid(pid);
         event.setImageUrl(imgUrl);
-        if (pos > 0) {
-            event.setPosition(pos);
-        }
+        event.setPosition(pos);
+
         return event;
     }
 
@@ -709,9 +716,8 @@ public class Event {
         event.setQueryId(queryId);
         event.setPid(pid);
         event.setImageUrl(imgUrl);
-        if (pos > 0) {
-            event.setPosition(pos);
-        }
+        event.setPosition(pos);
+
         return event;
     }
 
@@ -720,12 +726,19 @@ public class Event {
         Event event = new Event();
         event.setAction(Constants.Action.TRANSACTION);
         event.setQueryId(queryId);
-        event.setTransactionId(transactionId);
+
+        if (transactionId != null) {
+            event.setTransactionId(transactionId);
+        } else {
+            event.setTransactionId(generateRandomTransId());
+        }
         event.setValue(String.valueOf(value));
         return event;
     }
 
-
+    public static String generateRandomTransId() {
+        return UUID.randomUUID().toString();
+    }
 
 
 }
