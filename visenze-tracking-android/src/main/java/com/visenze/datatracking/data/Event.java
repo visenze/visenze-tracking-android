@@ -10,6 +10,7 @@ import com.visenze.datatracking.data.json.JsonStringSerializer;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 public class Event {
 
@@ -254,7 +255,9 @@ public class Event {
     }
 
     public void setPosition(int position) {
-        this.position = position;
+        if (position > 0) {
+            this.position = position;
+        }
     }
 
     public void setBrand(String brand) {
@@ -563,7 +566,6 @@ public class Event {
     @Expose
     private BigDecimal n5;
 
-
     public BigDecimal getN1() {
         return n1;
     }
@@ -583,7 +585,6 @@ public class Event {
     public BigDecimal getN5() {
         return n5;
     }
-
 
     public void setN1(BigDecimal n1) {
         this.n1 = n1;
@@ -616,6 +617,7 @@ public class Event {
         return gson.fromJson(jStr, Map.class);
     }
 
+
     public static boolean isValidEvent(Event e) {
         String action = e.getAction();
         if(action == null) {
@@ -625,16 +627,22 @@ public class Event {
             return (e.queryId != null);
         }
 
-        if (action.equals(Constants.Action.PRODUCT_CLICK) || action.equals(Constants.Action.PRODUCT_VIEW) || action.equals(Constants.Action.ADD_TO_CART)) {
-            return (e.queryId != null && e.pid != null && e.imageUrl != null);
+        if (action.equals(Constants.Action.PRODUCT_CLICK)
+                || action.equals(Constants.Action.PRODUCT_VIEW)
+                || action.equals(Constants.Action.ADD_TO_CART)
+                || action.equals(Constants.Action.ADD_TO_WISHLIST)) {
+            return (e.queryId != null && e.pid != null);
         }
 
         if (action.equals(Constants.Action.TRANSACTION)) {
-            return (e.queryId != null && e.transactionId != null);
+            return (e.queryId != null);
         }
         return true;
     }
 
+    public boolean isTransactionEvent() {
+        return Constants.Action.TRANSACTION.equals(action);
+    }
 
     public static Event createSearchEvent(String queryId) {
         Event event = new Event();
@@ -642,7 +650,6 @@ public class Event {
         event.setQueryId(queryId);
         return event;
     }
-
 
     public static Event createCustomEvent(String action) {
         Event event = new Event();
@@ -670,29 +677,41 @@ public class Event {
         return event;
     }
 
+    public static Event createProductClickEvent(String queryId, String pid) {
+        return createProductClickEvent(queryId, pid, null, 0);
+    }
+
     public static Event createProductClickEvent(String queryId, String pid, String imgUrl, int pos) {
-        Event event = new Event();
-        event.setAction(Constants.Action.PRODUCT_CLICK);
-        event.setQueryId(queryId);
-        event.setPid(pid);
-        event.setImageUrl(imgUrl);
-        event.setPosition(pos);
-        return event;
+        return createProductRelatedEvent(Constants.Action.PRODUCT_CLICK, queryId, pid, imgUrl, pos);
+    }
+
+    public static Event createProductImpressionEvent(String queryId, String pid) {
+        return createProductImpressionEvent(queryId, pid, null, 0);
     }
 
     public static Event createProductImpressionEvent(String queryId, String pid, String imgUrl, int pos) {
-        Event event = new Event();
-        event.setAction(Constants.Action.PRODUCT_VIEW);
-        event.setQueryId(queryId);
-        event.setPid(pid);
-        event.setImageUrl(imgUrl);
-        event.setPosition(pos);
-        return event;
+        return createProductRelatedEvent(Constants.Action.PRODUCT_VIEW, queryId, pid, imgUrl, pos);
+    }
+
+    public static Event createAddCartEvent(String queryId, String pid) {
+        return createAddCartEvent(queryId, pid, null, 0);
     }
 
     public static Event createAddCartEvent(String queryId, String pid, String imgUrl, int pos) {
+        return createProductRelatedEvent(Constants.Action.ADD_TO_CART, queryId, pid, imgUrl, pos);
+    }
+
+    public static Event createAddToWishListEvent(String queryId, String pid) {
+        return createAddToWishListEvent(queryId, pid, null, 0);
+    }
+
+    public static Event createAddToWishListEvent(String queryId, String pid, String imgUrl, int pos) {
+        return createProductRelatedEvent(Constants.Action.ADD_TO_WISHLIST, queryId, pid, imgUrl, pos);
+    }
+
+    private static Event createProductRelatedEvent(String action, String queryId, String pid, String imgUrl, int pos) {
         Event event = new Event();
-        event.setAction(Constants.Action.ADD_TO_CART);
+        event.setAction(action);
         event.setQueryId(queryId);
         event.setPid(pid);
         event.setImageUrl(imgUrl);
@@ -700,6 +719,10 @@ public class Event {
         return event;
     }
 
+
+    public static Event createTransactionEvent(String queryId, double value) {
+        return createTransactionEvent(queryId, null, value);
+    }
 
     public static Event createTransactionEvent(String queryId, String transactionId, double value) {
         Event event = new Event();
@@ -710,7 +733,9 @@ public class Event {
         return event;
     }
 
-
+    public static String generateRandomTransId() {
+        return UUID.randomUUID().toString();
+    }
 
 
 }

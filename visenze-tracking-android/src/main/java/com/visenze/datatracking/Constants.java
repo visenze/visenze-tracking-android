@@ -19,7 +19,7 @@ public class Constants {
         public static final String UNINSTALL = "app_uninstall";
         public static final String TRANSACTION = "transaction";
         public static final String ADD_TO_CART = "add_to_cart";
-
+        public static final String ADD_TO_WISHLIST = "add_to_wishlist";
     }
 
 

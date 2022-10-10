@@ -62,6 +62,11 @@ public class Tracker {
             return;
         }
 
+        // generate random trans id if not provided
+        if (e.isTransactionEvent() && e.getTransactionId() == null) {
+            e.setTransactionId(Event.generateRandomTransId());
+        }
+
         addFields(e); // add additional field if not set by user.
         Map<String, String> map = e.toMap();
 
@@ -93,13 +98,20 @@ public class Tracker {
             throw new RuntimeException("code must not be null");
         }
 
-
         if (events.size() > 0) {
             EventsBody body = new EventsBody(uid);
+
+            // for batch events, use same generated trans id if missing
+            String randomTransId = Event.generateRandomTransId();
 
             for(Event e : events) {
                 if(Event.isValidEvent(e)) {
                     addFields(e);
+
+                    if (e.isTransactionEvent() && e.getTransactionId() == null) {
+                        e.setTransactionId(randomTransId);
+                    }
+
                     body.addEvent(e);
                 } else {
                     warnMissingEventFields(e);
@@ -183,5 +195,11 @@ public class Tracker {
         }
     }
 
+    public String getUid() {
+        return uid;
+    }
 
+    public String getSessionId() {
+        return sessionManager.getSessionId();
+    }
 }
