@@ -79,7 +79,7 @@ public class Tracker {
                         String body = response.errorBody().string();
                         Gson gson = new Gson();
                         DataTrackingResponse resp = gson.fromJson(body, DataTrackingResponse.class);
-                        Log.e(TAG, "event send failed: " + resp.getError().getMessage());
+                        logError(resp);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -137,7 +137,7 @@ public class Tracker {
                                 String body = response.errorBody().string();
                                 Gson gson = new Gson();
                                 DataTrackingResponse resp = gson.fromJson(body, DataTrackingResponse.class);
-                                Log.e(TAG, "event send failed: " + resp.getError().getMessage());
+                                logError(resp);
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
@@ -150,6 +150,12 @@ public class Tracker {
                     Log.e(TAG, "failed to send events batch");
                 }
             });
+        }
+    }
+
+    private void logError(DataTrackingResponse resp) {
+        if (resp != null && resp.getError() != null) {
+            Log.e(TAG, "event send failed: " + resp.getError().getMessage());
         }
     }
 
