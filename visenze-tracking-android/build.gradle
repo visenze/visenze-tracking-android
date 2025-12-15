@@ -5,18 +5,17 @@ plugins {
 
 def versionMajor = 0
 def versionMinor = 2
-def versionPatch = 3
+def versionPatch = 4
 
-def version = "0.2.3"
+def version = "0.2.4"
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 32
+    buildToolsVersion "30.0.3"
 
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 29
-        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        targetSdkVersion 32
         buildConfigField("String","VERSION_NAME","\"${version}\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
