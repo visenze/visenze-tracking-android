@@ -1,7 +1,7 @@
 package com.visenze.datatracking;
 
 public class Constants {
-    public static final String BASE_URL = "https://analytics.data.visenze.com/v3/";
+    public static final String BASE_URL = "https://multimodal.analytics.data.rezolve.com/v3/";
     public static final String BASE_URL_CN = "https://analytics.visenze.com.cn/v3/";
     public static final String PLATFORM = "Mobile";
     public static final String OS = "Android";
